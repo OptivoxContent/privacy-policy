@@ -1,0 +1,13 @@
+{
+  "name": "vy-reel-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static site for vy-reel.com — hosts the VyReel privacy policy at /privacy-policy.",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "marked": "^12.0.2"
+  }
+}

@@ -1,0 +1,65 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VyReel — Shoppable video for Shopify</title><meta name="description" content="VyReel adds shoppable short-form video (reels) to your Shopify storefront.">
+<link rel="canonical" href="https://vy-reel.com/"><link rel="icon" href="/favicon.ico" sizes="any">
+<meta property="og:title" content="VyReel — Shoppable video for Shopify"><meta property="og:description" content="VyReel adds shoppable short-form video (reels) to your Shopify storefront.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://vy-reel.com/">
+<meta name="theme-color" content="#0a0a0b"><meta name="robots" content="index,follow">
+<style>
+:root{--bg:#0a0a0b;--card:#141417;--line:#26262c;--ink:#e8e8ec;--mut:#9a9aa6;--white:#fff;--o1:#ffae00;--o2:#ff6a00;--o3:#ff2d00;--grad:linear-gradient(135deg,var(--o1),var(--o2) 45%,var(--o3))}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--o2);text-decoration:none}
+a:hover{color:var(--o1);text-decoration:underline}
+.hdr{position:sticky;top:0;z-index:20;display:flex;align-items:center;padding:13px 22px;background:rgba(10,10,11,.72);-webkit-backdrop-filter:saturate(160%) blur(10px);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
+.hdr a{display:flex;align-items:center;gap:10px}
+.hdr img{height:28px;width:auto;display:block}
+.hdr .wm{font-weight:800;font-size:1.12rem;letter-spacing:-.02em;color:var(--white)}
+.hdr .wm span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero{position:relative;overflow:hidden;text-align:center;padding:70px 22px 46px;border-bottom:1px solid var(--line)}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 120% at 50% -10%,rgba(255,106,0,.22),transparent 60%);pointer-events:none}
+.hero>*{position:relative}
+.hero img{height:70px;width:auto;margin-bottom:16px;filter:drop-shadow(0 6px 26px rgba(255,80,0,.4))}
+.hero h1{margin:.1em 0;font-size:2.6rem;line-height:1.1;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{color:var(--mut);font-size:1.02rem;margin:.2em 0}
+.hero .eff{display:inline-block;margin-top:14px;font-size:.8rem;color:var(--o1);border:1px solid rgba(255,106,0,.4);border-radius:999px;padding:5px 14px;background:rgba(255,106,0,.08)}
+.cue{margin-top:24px;color:var(--mut);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;opacity:.7;animation:bob 2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+.cta{display:inline-block;margin-top:22px;background:var(--grad);color:#fff;font-weight:700;padding:13px 26px;border-radius:12px;box-shadow:0 10px 32px rgba(255,80,0,.3)}
+.cta:hover{text-decoration:none;filter:brightness(1.06)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 22px;display:grid;grid-template-columns:240px 1fr;gap:48px;align-items:start}
+.toc{position:sticky;top:72px;padding:30px 0;max-height:calc(100vh - 92px);overflow:auto}
+.toc .t{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--mut);margin:0 0 10px}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc a{display:block;padding:6px 12px;border-left:2px solid transparent;color:var(--mut);font-size:.89rem;line-height:1.35;border-radius:0 6px 6px 0}
+.toc a:hover{color:var(--ink);text-decoration:none;background:rgba(255,255,255,.03)}
+.toc a.active{color:var(--white);border-left-color:var(--o2);background:linear-gradient(90deg,rgba(255,106,0,.13),transparent)}
+.content{padding:42px 0 90px;min-width:0}
+.content>p:first-child{font-size:1.06rem;color:var(--ink)}
+.content h2{font-size:1.5rem;margin:2.4em 0 .6em;color:var(--white);letter-spacing:-.01em;scroll-margin-top:86px}
+.content h2:first-of-type{margin-top:.3em}
+.content h3{font-size:1.1rem;margin:1.7em 0 .4em;color:#f3c79c;scroll-margin-top:86px}
+.content p,.content li{color:#c9c9d2}
+.content strong{color:var(--white)}
+.content code{background:#1c1c22;color:#ffb27a;padding:.12em .42em;border-radius:5px;font-size:.86em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.content table{width:100%;border-collapse:collapse;margin:1.3em 0;font-size:.92rem;display:block;overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+.content th,.content td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:11px 13px;text-align:left;vertical-align:top}
+.content tr th:last-child,.content tr td:last-child{border-right:0}
+.content tbody tr:last-child td{border-bottom:0}
+.content th{background:linear-gradient(180deg,rgba(255,106,0,.15),rgba(255,106,0,.05));color:var(--white);font-weight:600}
+.content hr{border:0;border-top:1px solid var(--line);margin:2.6em 0}
+.content ul{padding-left:1.2em}
+.content li{margin:.34em 0}
+.content li::marker{color:var(--o2)}
+.ftr{border-top:1px solid var(--line);padding:30px 22px;text-align:center;color:var(--mut);font-size:.85rem}
+.ftr a{color:var(--o2)}
+@media(max-width:860px){
+.wrap{grid-template-columns:1fr;gap:0}
+.toc{position:static;max-height:none;padding:16px 0 0;border-bottom:1px solid var(--line)}
+.toc ul{display:flex;flex-wrap:wrap;gap:5px}
+.toc a{border-left:0;border-radius:999px;padding:5px 11px;font-size:.78rem;background:rgba(255,255,255,.04)}
+.toc a.active{border-left:0;background:rgba(255,106,0,.18)}
+.hero h1{font-size:2rem}.content{padding:26px 0 60px}
+}</style></head><body>
+<header class="hdr"><a href="/"><img src="/vyreel-emblem.png" alt="VyReel"><span class="wm">Vy<span>Reel</span></span></a></header><section class="hero" style="border-bottom:0;padding-bottom:84px"><img src="/vyreel-emblem.png" alt="VyReel"><h1>VyReel</h1><p class="sub">Shoppable short-form video for Shopify storefronts.</p><a class="cta" href="/privacy-policy">Privacy Policy</a></section><footer class="ftr">&copy; 2026 OPTIVOX (PRIVATE) LIMITED &middot; VyReel &middot; <a href="/privacy-policy">Privacy Policy</a></footer></body></html>
