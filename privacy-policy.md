@@ -11,7 +11,7 @@ This Privacy Policy explains how **VyReel** ("we", "us", or "our") collects, use
 
 VyReel is an embedded Shopify app that lets a Shopify merchant add shoppable short-form video ("reels") to their storefront. Merchants can upload videos or import their own social videos, attach products, and publish reels to their store; the App also measures storefront engagement and attributes resulting sales.
 
-This is the **app vendor's** privacy policy. It describes our own data practices as the developer and operator of the App and the marketing site. It is **not** a merchant's store privacy policy, and it is **not** a substitute for the privacy policy that each merchant must maintain toward their own customers and storefront visitors. Where we process personal data of a merchant's storefront visitors, we do so on that merchant's behalf and on their instructions (see Section 2).
+This is the **privacy policy for the VyReel app** — it explains how we (OPTIVOX (PRIVATE) LIMITED) handle data for the merchants who install VyReel and for their storefront visitors, whose data we process on each merchant's behalf (see Section 2).
 
 This policy covers:
 

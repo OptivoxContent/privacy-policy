@@ -10,11 +10,9 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-a{color:var(--o2);text-decoration:none}
-a:hover{color:var(--o1);text-decoration:underline}
+a{color:var(--o2);text-decoration:none}a:hover{color:var(--o1);text-decoration:underline}
 .hdr{position:sticky;top:0;z-index:20;display:flex;align-items:center;padding:13px 22px;background:rgba(10,10,11,.72);-webkit-backdrop-filter:saturate(160%) blur(10px);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
-.hdr a{display:flex;align-items:center;gap:10px}
-.hdr img{height:28px;width:auto;display:block}
+.hdr a{display:flex;align-items:center;gap:10px}.hdr img{height:28px;width:auto;display:block}
 .hdr .wm{font-weight:800;font-size:1.12rem;letter-spacing:-.02em;color:var(--white)}
 .hdr .wm span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero{position:relative;overflow:hidden;text-align:center;padding:70px 22px 46px;border-bottom:1px solid var(--line)}
@@ -23,31 +21,14 @@ a:hover{color:var(--o1);text-decoration:underline}
 .hero img{height:70px;width:auto;margin-bottom:16px;filter:drop-shadow(0 6px 26px rgba(255,80,0,.4))}
 .hero h1{margin:.1em 0;font-size:2.6rem;line-height:1.1;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero .sub{color:var(--mut);font-size:1.02rem;margin:.2em 0}
-.hero .eff{display:inline-block;margin-top:14px;font-size:.8rem;color:var(--o1);border:1px solid rgba(255,106,0,.4);border-radius:999px;padding:5px 14px;background:rgba(255,106,0,.08)}
+.hero .eff{display:inline-block;font-size:.8rem;color:var(--o1);border:1px solid rgba(255,106,0,.4);border-radius:999px;padding:5px 14px;background:rgba(255,106,0,.08)}
 .cue{margin-top:24px;color:var(--mut);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;opacity:.7;animation:bob 2s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 .cta{display:inline-block;margin-top:22px;background:var(--grad);color:#fff;font-weight:700;padding:13px 26px;border-radius:12px;box-shadow:0 10px 32px rgba(255,80,0,.3)}
 .cta:hover{text-decoration:none;filter:brightness(1.06)}
 .herobtns{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:14px}
-.herobtns .eff{margin-top:0}
-.dl{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--o1);border:1px solid rgba(255,106,0,.45);border-radius:10px;padding:8px 15px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
-.dl:hover{background:rgba(255,106,0,.12);color:#fff}
-@media print{
-*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-body{background:#fff;color:#111;font-size:11.5pt}
-.hdr,.toc,.cue,.dl{display:none!important}
-.hero{padding:14px 0 18px;border:0}.hero::before{display:none}.hero img{height:52px;filter:none}
-.hero h1{font-size:23pt;-webkit-text-fill-color:#ff5400;color:#ff5400}
-.hero .sub{color:#555}.hero .eff{color:#a34700;border-color:#ddd;background:none}
-.wrap{display:block;max-width:none;padding:0}.content{padding:8px 0 0}
-.content h2{color:#111;font-size:15pt;page-break-after:avoid}
-.content h3{color:#a34700;page-break-after:avoid}
-.content p,.content li{color:#222}.content strong{color:#000}
-.content a{color:#000;text-decoration:underline}.content code{background:#f1f1f1;color:#a33}
-.content table{border:1px solid #999;font-size:8.5pt;page-break-inside:avoid}
-.content th{background:#f3f3f3!important;color:#000}.content th,.content td{border-color:#999}
-.ftr{color:#555;border-top:1px solid #ccc}
-}
+.dl{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--o1);border:1px solid rgba(255,106,0,.45);border-radius:10px;padding:8px 15px;font-size:.82rem;font-weight:600;cursor:pointer}
+.dl:hover{background:rgba(255,106,0,.12);color:#fff;text-decoration:none}
 .wrap{max-width:1140px;margin:0 auto;padding:0 22px;display:grid;grid-template-columns:240px 1fr;gap:48px;align-items:start}
 .toc{position:sticky;top:72px;padding:30px 0;max-height:calc(100vh - 92px);overflow:auto}
 .toc .t{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--mut);margin:0 0 10px}
@@ -60,8 +41,7 @@ body{background:#fff;color:#111;font-size:11.5pt}
 .content h2{font-size:1.5rem;margin:2.4em 0 .6em;color:var(--white);letter-spacing:-.01em;scroll-margin-top:86px}
 .content h2:first-of-type{margin-top:.3em}
 .content h3{font-size:1.1rem;margin:1.7em 0 .4em;color:#f3c79c;scroll-margin-top:86px}
-.content p,.content li{color:#c9c9d2}
-.content strong{color:var(--white)}
+.content p,.content li{color:#c9c9d2}.content strong{color:var(--white)}
 .content code{background:#1c1c22;color:#ffb27a;padding:.12em .42em;border-radius:5px;font-size:.86em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
 .content table{width:100%;border-collapse:collapse;margin:1.3em 0;font-size:.92rem;display:block;overflow-x:auto;border:1px solid var(--line);border-radius:10px}
 .content th,.content td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:11px 13px;text-align:left;vertical-align:top}
@@ -69,11 +49,8 @@ body{background:#fff;color:#111;font-size:11.5pt}
 .content tbody tr:last-child td{border-bottom:0}
 .content th{background:linear-gradient(180deg,rgba(255,106,0,.15),rgba(255,106,0,.05));color:var(--white);font-weight:600}
 .content hr{border:0;border-top:1px solid var(--line);margin:2.6em 0}
-.content ul{padding-left:1.2em}
-.content li{margin:.34em 0}
-.content li::marker{color:var(--o2)}
-.ftr{border-top:1px solid var(--line);padding:30px 22px;text-align:center;color:var(--mut);font-size:.85rem}
-.ftr a{color:var(--o2)}
+.content ul{padding-left:1.2em}.content li{margin:.34em 0}.content li::marker{color:var(--o2)}
+.ftr{border-top:1px solid var(--line);padding:30px 22px;text-align:center;color:var(--mut);font-size:.85rem}.ftr a{color:var(--o2)}
 @media(max-width:860px){
 .wrap{grid-template-columns:1fr;gap:0}
 .toc{position:static;max-height:none;padding:16px 0 0;border-bottom:1px solid var(--line)}
@@ -82,11 +59,11 @@ body{background:#fff;color:#111;font-size:11.5pt}
 .toc a.active{border-left:0;background:rgba(255,106,0,.18)}
 .hero h1{font-size:2rem}.content{padding:26px 0 60px}
 }</style></head><body>
-<header class="hdr"><a href="/"><img src="/vyreel-emblem.png" alt="VyReel"><span class="wm">Vy<span>Reel</span></span></a></header><section class="hero"><img src="/vyreel-emblem.png" alt="VyReel"><h1>Privacy Policy</h1><p class="sub">VyReel &middot; OPTIVOX (PRIVATE) LIMITED</p><div class="herobtns"><div class="eff">Effective June 16, 2026</div><button class="dl" onclick="window.print()">&#11015; Download PDF</button></div><div class="cue">Scroll to read &darr;</div></section><div class="wrap"><aside class="toc"><p class="t">Contents</p><ul><li><a href="#1-introduction-amp-scope">1. Introduction &amp; scope</a></li><li><a href="#2-our-role-controller-vs-processor">2. Our role: controller vs. processor</a></li><li><a href="#3-definitions">3. Definitions</a></li><li><a href="#4-personal-data-we-collect">4. Personal data we collect</a></li><li><a href="#5-how-we-use-data-purposes-of-processing">5. How we use data (purposes of processing)</a></li><li><a href="#6-legal-bases-for-processing-gdpr-uk-gdpr">6. Legal bases for processing (GDPR / UK GDPR)</a></li><li><a href="#7-how-we-share-data-disclosures-amp-sub-processors">7. How we share data — disclosures &amp; sub-processors</a></li><li><a href="#8-cookies-amp-tracking">8. Cookies &amp; tracking</a></li><li><a href="#9-your-rights">9. Your rights</a></li><li><a href="#10-international-data-transfers">10. International data transfers</a></li><li><a href="#11-data-security">11. Data security</a></li><li><a href="#12-data-retention">12. Data retention</a></li><li><a href="#13-children-39-s-data">13. Children&#39;s data</a></li><li><a href="#14-automated-decision-making-amp-profiling">14. Automated decision-making &amp; profiling</a></li><li><a href="#15-changes-to-this-policy">15. Changes to this policy</a></li><li><a href="#16-contact-us">16. Contact us</a></li></ul></aside><main class="content"><p>This Privacy Policy explains how <strong>VyReel</strong> (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) collects, uses, shares, and protects personal data in connection with the VyReel marketing website at <strong>vy-reel.com</strong> and the <strong>VyReel Shopify application</strong> (the &quot;App&quot;). It is published at <strong><a href="https://vy-reel.com/privacy-policy">https://vy-reel.com/privacy-policy</a></strong>.</p>
+<header class="hdr"><a href="/"><img src="/vyreel-emblem.png" alt="VyReel"><span class="wm">Vy<span>Reel</span></span></a></header><section class="hero"><img src="/vyreel-emblem.png" alt="VyReel"><h1>Privacy Policy</h1><p class="sub">VyReel &middot; OPTIVOX (PRIVATE) LIMITED</p><div class="herobtns"><div class="eff">Effective from June 16, 2026 to present</div><a class="dl" href="/privacy-policy.pdf" download>&#11015; Download PDF</a></div><div class="cue">Scroll to read &darr;</div></section><div class="wrap"><aside class="toc"><p class="t">Contents</p><ul><li><a href="#1-introduction-amp-scope">1. Introduction &amp; scope</a></li><li><a href="#2-our-role-controller-vs-processor">2. Our role: controller vs. processor</a></li><li><a href="#3-definitions">3. Definitions</a></li><li><a href="#4-personal-data-we-collect">4. Personal data we collect</a></li><li><a href="#5-how-we-use-data-purposes-of-processing">5. How we use data (purposes of processing)</a></li><li><a href="#6-legal-bases-for-processing-gdpr-uk-gdpr">6. Legal bases for processing (GDPR / UK GDPR)</a></li><li><a href="#7-how-we-share-data-disclosures-amp-sub-processors">7. How we share data — disclosures &amp; sub-processors</a></li><li><a href="#8-cookies-amp-tracking">8. Cookies &amp; tracking</a></li><li><a href="#9-your-rights">9. Your rights</a></li><li><a href="#10-international-data-transfers">10. International data transfers</a></li><li><a href="#11-data-security">11. Data security</a></li><li><a href="#12-data-retention">12. Data retention</a></li><li><a href="#13-children-39-s-data">13. Children&#39;s data</a></li><li><a href="#14-automated-decision-making-amp-profiling">14. Automated decision-making &amp; profiling</a></li><li><a href="#15-changes-to-this-policy">15. Changes to this policy</a></li><li><a href="#16-contact-us">16. Contact us</a></li></ul></aside><main class="content"><p>This Privacy Policy explains how <strong>VyReel</strong> (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) collects, uses, shares, and protects personal data in connection with the VyReel marketing website at <strong>vy-reel.com</strong> and the <strong>VyReel Shopify application</strong> (the &quot;App&quot;). It is published at <strong><a href="https://vy-reel.com/privacy-policy">https://vy-reel.com/privacy-policy</a></strong>.</p>
 <hr>
 <h2 id="1-introduction-amp-scope">1. Introduction &amp; scope</h2>
 <p>VyReel is an embedded Shopify app that lets a Shopify merchant add shoppable short-form video (&quot;reels&quot;) to their storefront. Merchants can upload videos or import their own social videos, attach products, and publish reels to their store; the App also measures storefront engagement and attributes resulting sales.</p>
-<p>This is the <strong>app vendor&#39;s</strong> privacy policy. It describes our own data practices as the developer and operator of the App and the marketing site. It is <strong>not</strong> a merchant&#39;s store privacy policy, and it is <strong>not</strong> a substitute for the privacy policy that each merchant must maintain toward their own customers and storefront visitors. Where we process personal data of a merchant&#39;s storefront visitors, we do so on that merchant&#39;s behalf and on their instructions (see Section 2).</p>
+<p>This is the <strong>privacy policy for the VyReel app</strong> — it explains how we (OPTIVOX (PRIVATE) LIMITED) handle data for the merchants who install VyReel and for their storefront visitors, whose data we process on each merchant&#39;s behalf (see Section 2).</p>
 <p>This policy covers:</p>
 <ul>
 <li>Personal data of <strong>merchants</strong> (our direct customers — the Shopify store owners and their staff who install and use the App).</li>

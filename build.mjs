@@ -1,21 +1,24 @@
-// Builds the static site into ./public/ — converts privacy-policy.md into a
-// dark, on-brand (black + orange gradient) page at /privacy-policy with a
-// sticky table-of-contents + scroll-spy. Run: `npm run build`.
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from "node:fs";
+// Builds the static site into ./public/ — a dark, on-brand privacy page at
+// /privacy-policy (sticky TOC + scroll-spy) PLUS a real, professional PDF
+// (privacy-policy.pdf) rendered from a clean light layout via headless Chrome.
+// The "Download PDF" button links straight to that file. Run: `npm run build`.
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync, existsSync, unlinkSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { marked } from "marked";
 
 const here = (p) => new URL(p, import.meta.url);
+const path = (p) => fileURLToPath(here(p));
 const YEAR = new Date().getFullYear();
 mkdirSync(here("./public/privacy-policy/"), { recursive: true });
 
 const mdRaw = readFileSync(here("./privacy-policy.md"), "utf8");
 const eff = (mdRaw.match(/\*\*Effective date:\*\*\s*([^\n*]+)/) || [, ""])[1].trim();
+const effLine = eff ? `Effective from ${eff} to present` : "";
 
 let html = marked.parse(mdRaw);
-// The hero owns the title + effective date, so strip them from the body.
 html = html.replace(/<h1[^>]*>[\s\S]*?<\/h1>\s*/, "");
 html = html.replace(/<p><strong>Effective date:[\s\S]*?<\/p>\s*/, "");
-// Give each ## section a slug id and collect the table of contents.
 const toc = [];
 html = html.replace(/<h2>([\s\S]*?)<\/h2>/g, (_m, inner) => {
   const text = inner.replace(/<[^>]+>/g, "").trim();
@@ -30,11 +33,9 @@ const css = `
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-a{color:var(--o2);text-decoration:none}
-a:hover{color:var(--o1);text-decoration:underline}
+a{color:var(--o2);text-decoration:none}a:hover{color:var(--o1);text-decoration:underline}
 .hdr{position:sticky;top:0;z-index:20;display:flex;align-items:center;padding:13px 22px;background:rgba(10,10,11,.72);-webkit-backdrop-filter:saturate(160%) blur(10px);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
-.hdr a{display:flex;align-items:center;gap:10px}
-.hdr img{height:28px;width:auto;display:block}
+.hdr a{display:flex;align-items:center;gap:10px}.hdr img{height:28px;width:auto;display:block}
 .hdr .wm{font-weight:800;font-size:1.12rem;letter-spacing:-.02em;color:var(--white)}
 .hdr .wm span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero{position:relative;overflow:hidden;text-align:center;padding:70px 22px 46px;border-bottom:1px solid var(--line)}
@@ -43,31 +44,14 @@ a:hover{color:var(--o1);text-decoration:underline}
 .hero img{height:70px;width:auto;margin-bottom:16px;filter:drop-shadow(0 6px 26px rgba(255,80,0,.4))}
 .hero h1{margin:.1em 0;font-size:2.6rem;line-height:1.1;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero .sub{color:var(--mut);font-size:1.02rem;margin:.2em 0}
-.hero .eff{display:inline-block;margin-top:14px;font-size:.8rem;color:var(--o1);border:1px solid rgba(255,106,0,.4);border-radius:999px;padding:5px 14px;background:rgba(255,106,0,.08)}
+.hero .eff{display:inline-block;font-size:.8rem;color:var(--o1);border:1px solid rgba(255,106,0,.4);border-radius:999px;padding:5px 14px;background:rgba(255,106,0,.08)}
 .cue{margin-top:24px;color:var(--mut);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;opacity:.7;animation:bob 2s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 .cta{display:inline-block;margin-top:22px;background:var(--grad);color:#fff;font-weight:700;padding:13px 26px;border-radius:12px;box-shadow:0 10px 32px rgba(255,80,0,.3)}
 .cta:hover{text-decoration:none;filter:brightness(1.06)}
 .herobtns{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:14px}
-.herobtns .eff{margin-top:0}
-.dl{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--o1);border:1px solid rgba(255,106,0,.45);border-radius:10px;padding:8px 15px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
-.dl:hover{background:rgba(255,106,0,.12);color:#fff}
-@media print{
-*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-body{background:#fff;color:#111;font-size:11.5pt}
-.hdr,.toc,.cue,.dl{display:none!important}
-.hero{padding:14px 0 18px;border:0}.hero::before{display:none}.hero img{height:52px;filter:none}
-.hero h1{font-size:23pt;-webkit-text-fill-color:#ff5400;color:#ff5400}
-.hero .sub{color:#555}.hero .eff{color:#a34700;border-color:#ddd;background:none}
-.wrap{display:block;max-width:none;padding:0}.content{padding:8px 0 0}
-.content h2{color:#111;font-size:15pt;page-break-after:avoid}
-.content h3{color:#a34700;page-break-after:avoid}
-.content p,.content li{color:#222}.content strong{color:#000}
-.content a{color:#000;text-decoration:underline}.content code{background:#f1f1f1;color:#a33}
-.content table{border:1px solid #999;font-size:8.5pt;page-break-inside:avoid}
-.content th{background:#f3f3f3!important;color:#000}.content th,.content td{border-color:#999}
-.ftr{color:#555;border-top:1px solid #ccc}
-}
+.dl{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--o1);border:1px solid rgba(255,106,0,.45);border-radius:10px;padding:8px 15px;font-size:.82rem;font-weight:600;cursor:pointer}
+.dl:hover{background:rgba(255,106,0,.12);color:#fff;text-decoration:none}
 .wrap{max-width:1140px;margin:0 auto;padding:0 22px;display:grid;grid-template-columns:240px 1fr;gap:48px;align-items:start}
 .toc{position:sticky;top:72px;padding:30px 0;max-height:calc(100vh - 92px);overflow:auto}
 .toc .t{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--mut);margin:0 0 10px}
@@ -80,8 +64,7 @@ body{background:#fff;color:#111;font-size:11.5pt}
 .content h2{font-size:1.5rem;margin:2.4em 0 .6em;color:var(--white);letter-spacing:-.01em;scroll-margin-top:86px}
 .content h2:first-of-type{margin-top:.3em}
 .content h3{font-size:1.1rem;margin:1.7em 0 .4em;color:#f3c79c;scroll-margin-top:86px}
-.content p,.content li{color:#c9c9d2}
-.content strong{color:var(--white)}
+.content p,.content li{color:#c9c9d2}.content strong{color:var(--white)}
 .content code{background:#1c1c22;color:#ffb27a;padding:.12em .42em;border-radius:5px;font-size:.86em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
 .content table{width:100%;border-collapse:collapse;margin:1.3em 0;font-size:.92rem;display:block;overflow-x:auto;border:1px solid var(--line);border-radius:10px}
 .content th,.content td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:11px 13px;text-align:left;vertical-align:top}
@@ -89,11 +72,8 @@ body{background:#fff;color:#111;font-size:11.5pt}
 .content tbody tr:last-child td{border-bottom:0}
 .content th{background:linear-gradient(180deg,rgba(255,106,0,.15),rgba(255,106,0,.05));color:var(--white);font-weight:600}
 .content hr{border:0;border-top:1px solid var(--line);margin:2.6em 0}
-.content ul{padding-left:1.2em}
-.content li{margin:.34em 0}
-.content li::marker{color:var(--o2)}
-.ftr{border-top:1px solid var(--line);padding:30px 22px;text-align:center;color:var(--mut);font-size:.85rem}
-.ftr a{color:var(--o2)}
+.content ul{padding-left:1.2em}.content li{margin:.34em 0}.content li::marker{color:var(--o2)}
+.ftr{border-top:1px solid var(--line);padding:30px 22px;text-align:center;color:var(--mut);font-size:.85rem}.ftr a{color:var(--o2)}
 @media(max-width:860px){
 .wrap{grid-template-columns:1fr;gap:0}
 .toc{position:static;max-height:none;padding:16px 0 0;border-bottom:1px solid var(--line)}
@@ -116,11 +96,10 @@ function head(title, desc, canonical) {
 <style>${css}</style></head><body>
 <header class="hdr"><a href="/"><img src="/vyreel-emblem.png" alt="VyReel"><span class="wm">Vy<span>Reel</span></span></a></header>`;
 }
-const HDR_LOGO = `<a href="/"><img src="/vyreel-emblem.png" alt="VyReel"><span class="wm">Vy<span>Reel</span></span></a>`;
 const foot = `<footer class="ftr">&copy; ${YEAR} OPTIVOX (PRIVATE) LIMITED &middot; VyReel &middot; <a href="/privacy-policy">Privacy Policy</a></footer></body></html>`;
 
 const policy = head("Privacy Policy — VyReel", "How VyReel (OPTIVOX (PRIVATE) LIMITED) collects, uses, shares, and protects personal data across its Shopify app and website.", "https://vy-reel.com/privacy-policy")
-  + `<section class="hero"><img src="/vyreel-emblem.png" alt="VyReel"><h1>Privacy Policy</h1><p class="sub">VyReel &middot; OPTIVOX (PRIVATE) LIMITED</p><div class="herobtns">${eff ? `<div class="eff">Effective ${eff}</div>` : ""}<button class="dl" onclick="window.print()">&#11015; Download PDF</button></div><div class="cue">Scroll to read &darr;</div></section>`
+  + `<section class="hero"><img src="/vyreel-emblem.png" alt="VyReel"><h1>Privacy Policy</h1><p class="sub">VyReel &middot; OPTIVOX (PRIVATE) LIMITED</p><div class="herobtns">${effLine ? `<div class="eff">${effLine}</div>` : ""}<a class="dl" href="/privacy-policy.pdf" download>&#11015; Download PDF</a></div><div class="cue">Scroll to read &darr;</div></section>`
   + `<div class="wrap"><aside class="toc"><p class="t">Contents</p><ul>${tocHtml}</ul></aside><main class="content">${html}</main></div>`
   + spy + foot;
 
@@ -132,4 +111,43 @@ writeFileSync(here("./public/privacy-policy/index.html"), policy);
 writeFileSync(here("./public/index.html"), landing);
 copyFileSync(here("./assets/favicon.ico"), here("./public/favicon.ico"));
 copyFileSync(here("./assets/vyreel-emblem.png"), here("./public/vyreel-emblem.png"));
+
+/* ---- Professional PDF: clean LIGHT layout rendered by headless Chrome ---- */
+const pcss = `*{box-sizing:border-box}@page{margin:18mm 16mm}
+body{margin:0;background:#fff;color:#1a1a1a;font:11.5pt/1.6 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.doc{max-width:740px;margin:0 auto}
+.ph{text-align:center;border-bottom:2px solid #ff6a00;padding-bottom:16px;margin-bottom:22px}
+.ph img{height:48px;width:auto}
+.ph h1{margin:10px 0 5px;font-size:21pt;color:#111}
+.ph .m1{margin:2px 0;color:#ff6a00;font-size:9.5pt;font-weight:700}
+.ph .m2{margin:2px 0;color:#777;font-size:8.5pt}
+.pc>p:first-child{font-size:11.5pt}
+.pc h2{font-size:14pt;color:#111;margin:20px 0 6px;padding-top:9px;border-top:1px solid #ddd;page-break-after:avoid}
+.pc h3{font-size:11.5pt;color:#b34700;margin:14px 0 4px;page-break-after:avoid}
+.pc p,.pc li{color:#333}.pc strong{color:#000}
+.pc a{color:#1a1a1a;text-decoration:underline}
+.pc code{background:#f2f2f2;color:#a23;padding:.1em .35em;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.86em}
+.pc table{width:100%;border-collapse:collapse;margin:10px 0;font-size:9pt;page-break-inside:avoid}
+.pc th,.pc td{border:1px solid #bbb;padding:6px 8px;text-align:left;vertical-align:top}
+.pc th{background:#fff3ea;color:#111;font-weight:700}
+.pc hr{border:0;border-top:1px solid #ddd;margin:18px 0}
+.pc ul{padding-left:18px;margin:6px 0}.pc li{margin:3px 0}`;
+const printHtml = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>VyReel Privacy Policy</title><style>${pcss}</style></head><body><div class="doc"><header class="ph"><img src="vyreel-emblem.png" alt="VyReel"><h1>VyReel Privacy Policy</h1><p class="m1">${effLine}</p><p class="m2">OPTIVOX (PRIVATE) LIMITED &middot; vy-reel.com/privacy-policy</p></header><main class="pc">${html}</main></div></body></html>`;
+
+const CHROME = process.env.CHROME_BIN || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+if (existsSync(CHROME)) {
+  const printPath = path("./public/_print.html");
+  writeFileSync(printPath, printHtml);
+  try {
+    execFileSync(CHROME, ["--headless=new", "--disable-gpu", "--no-sandbox", "--no-pdf-header-footer",
+      `--print-to-pdf=${path("./public/privacy-policy.pdf")}`, `file://${printPath}`],
+      { stdio: "ignore", timeout: 90000 });
+    console.log("  generated public/privacy-policy.pdf via Chrome");
+  } catch (e) {
+    console.log("  PDF generation FAILED:", String(e).slice(0, 140));
+  }
+  unlinkSync(printPath);
+} else {
+  console.log("  (no Chrome found — kept existing privacy-policy.pdf; set CHROME_BIN to regenerate)");
+}
 console.log(`built public/ — ${toc.length} TOC sections, emblem + favicon copied`);
