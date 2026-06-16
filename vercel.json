@@ -3,5 +3,8 @@
   "buildCommand": "node build.mjs",
   "outputDirectory": "public",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/((?!privacy-policy|favicon.ico|vyreel-emblem.png).*)", "destination": "/privacy-policy", "permanent": false }
+  ]
 }

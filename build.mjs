@@ -48,6 +48,26 @@ a:hover{color:var(--o1);text-decoration:underline}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 .cta{display:inline-block;margin-top:22px;background:var(--grad);color:#fff;font-weight:700;padding:13px 26px;border-radius:12px;box-shadow:0 10px 32px rgba(255,80,0,.3)}
 .cta:hover{text-decoration:none;filter:brightness(1.06)}
+.herobtns{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:14px}
+.herobtns .eff{margin-top:0}
+.dl{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--o1);border:1px solid rgba(255,106,0,.45);border-radius:10px;padding:8px 15px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
+.dl:hover{background:rgba(255,106,0,.12);color:#fff}
+@media print{
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{background:#fff;color:#111;font-size:11.5pt}
+.hdr,.toc,.cue,.dl{display:none!important}
+.hero{padding:14px 0 18px;border:0}.hero::before{display:none}.hero img{height:52px;filter:none}
+.hero h1{font-size:23pt;-webkit-text-fill-color:#ff5400;color:#ff5400}
+.hero .sub{color:#555}.hero .eff{color:#a34700;border-color:#ddd;background:none}
+.wrap{display:block;max-width:none;padding:0}.content{padding:8px 0 0}
+.content h2{color:#111;font-size:15pt;page-break-after:avoid}
+.content h3{color:#a34700;page-break-after:avoid}
+.content p,.content li{color:#222}.content strong{color:#000}
+.content a{color:#000;text-decoration:underline}.content code{background:#f1f1f1;color:#a33}
+.content table{border:1px solid #999;font-size:8.5pt;page-break-inside:avoid}
+.content th{background:#f3f3f3!important;color:#000}.content th,.content td{border-color:#999}
+.ftr{color:#555;border-top:1px solid #ccc}
+}
 .wrap{max-width:1140px;margin:0 auto;padding:0 22px;display:grid;grid-template-columns:240px 1fr;gap:48px;align-items:start}
 .toc{position:sticky;top:72px;padding:30px 0;max-height:calc(100vh - 92px);overflow:auto}
 .toc .t{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--mut);margin:0 0 10px}
@@ -100,7 +120,7 @@ const HDR_LOGO = `<a href="/"><img src="/vyreel-emblem.png" alt="VyReel"><span c
 const foot = `<footer class="ftr">&copy; ${YEAR} OPTIVOX (PRIVATE) LIMITED &middot; VyReel &middot; <a href="/privacy-policy">Privacy Policy</a></footer></body></html>`;
 
 const policy = head("Privacy Policy — VyReel", "How VyReel (OPTIVOX (PRIVATE) LIMITED) collects, uses, shares, and protects personal data across its Shopify app and website.", "https://vy-reel.com/privacy-policy")
-  + `<section class="hero"><img src="/vyreel-emblem.png" alt="VyReel"><h1>Privacy Policy</h1><p class="sub">VyReel &middot; OPTIVOX (PRIVATE) LIMITED</p>${eff ? `<div class="eff">Effective ${eff}</div>` : ""}<div class="cue">Scroll to read &darr;</div></section>`
+  + `<section class="hero"><img src="/vyreel-emblem.png" alt="VyReel"><h1>Privacy Policy</h1><p class="sub">VyReel &middot; OPTIVOX (PRIVATE) LIMITED</p><div class="herobtns">${eff ? `<div class="eff">Effective ${eff}</div>` : ""}<button class="dl" onclick="window.print()">&#11015; Download PDF</button></div><div class="cue">Scroll to read &darr;</div></section>`
   + `<div class="wrap"><aside class="toc"><p class="t">Contents</p><ul>${tocHtml}</ul></aside><main class="content">${html}</main></div>`
   + spy + foot;
 
