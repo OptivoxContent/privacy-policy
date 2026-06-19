@@ -1,7 +1,7 @@
 # VyReel Privacy Policy
 
 **Effective date:** June 16, 2026
-**Last updated:** June 16, 2026
+**Last updated:** June 20, 2026
 
 This Privacy Policy explains how **VyReel** ("we", "us", or "our") collects, uses, shares, and protects personal data in connection with the VyReel marketing website at **vy-reel.com** and the **VyReel Shopify application** (the "App"). It is published at **https://vy-reel.com/privacy-policy**.
 
@@ -147,6 +147,7 @@ We use the following sub-processors to operate the App. Each receives only the d
 | **Upstash** | Managed Redis — rate-limiting (always) and, where enabled, a transient event buffer and play-counter | Hashed IP, anonymous session ID, and (when buffering is enabled) User-Agent and Referrer, held transiently. |
 | **ScrapeCreators** | Primary service used to fetch public social content from the merchant's own provided handle/link | The merchant-provided handle/post URL; returns public post media and metadata. |
 | **Apify** | Fallback service used to fetch public social content when the primary service is unavailable | The merchant-provided handle/post URL; returns public post media and metadata. |
+| **Bunny.net** (BunnyCDN GmbH) | Video encoding (Bunny Stream) and CDN delivery of reels to iOS devices, for faster playback | Reel video files (merchant-uploaded or merchant-provided social content). No customer personal data. |
 
 We may update this list as our service evolves. For **processor-side data**, we will provide merchants with reasonable advance notice of new sub-processors as set out in the DPA, so that they may object where applicable. Merchants can request the current sub-processor list and DPA at support@vy-reel.com.
 
@@ -267,4 +268,4 @@ If you are in the EEA, the UK, or Switzerland, you also have the right to lodge 
 
 ---
 
-**Effective date:** June 16, 2026 · **Last updated:** June 16, 2026
+**Effective date:** June 16, 2026 · **Last updated:** June 20, 2026
